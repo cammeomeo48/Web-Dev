@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8" />
+<title>Chester-Cam</title>
+<style>
+  :root{
+    --pink:#f08b86;
+    --violet:#8b7dde;
+    --ink:#111;
+  }
+  html,body{height:100%}
+  body{
+    margin:0;
+    font: 18px/1.25 "Georgia","Times New Roman",serif;
+    color:var(--ink);
+    background:
+      repeating-linear-gradient(60deg, var(--violet) 0 70px, var(--pink) 70px 140px),
+      #b7b7e5;
+  }
+
+  .stage{
+    max-width: 640px;
+    margin: 28px auto;
+    background: rgba(240,240,255,.75);
+    border: 6px solid #3f55c7;
+    box-shadow: 0 0 0 8px rgba(63,85,199,.25) inset;
+    padding: 22px;
+  }
+
+  h1{
+    text-align:center;
+    font-size: 28px;
+    margin: 6px 0 0;
+  }
+  .roles{
+    text-align:center;
+    margin: 4px 0 12px;
+    letter-spacing:.3px;
+  }
+
+  .photo{
+    width: 320px; height: 240px;
+    margin: 0 auto 10px;
+    border: 8px solid #f06f6a;
+    outline: 4px solid #3f55c7;
+    background: #ddd center/cover no-repeat;
+    background-image: url("images/Chester.jpg");
+  }
+
+  .tagline{
+    text-align:center;
+    font-weight: 700;
+    margin: 8px 0 12px;
+  }
+
+  hr{ border: none; border-top: 3px solid #333; margin: 6px 0 10px; }
+
+  ol{ margin: 0 0 0 1.2rem; padding: 0 0 8px 0; }
+  li{ margin: .35rem 0; }
+
+</style>
+</head>
+<body>
+  <div class="stage">
+    <h1>Chester the Jester</h1>
+    <div class="roles">Clown • Juggler • Magician</div>
+
+    <div class="photo" role="img" aria-label="Chester and kids"></div>
+
+    <p class="tagline">Hire him for your child's party today</p>
+
+    <hr>
+
+    <ol>
+      <li>Reasonable rates</li>
+      <li>60 minutes, 90 minute programs</li>
+      <li>Birthday surprises!</li>
+    </ol>
+  </div>
+</body>
+</html>

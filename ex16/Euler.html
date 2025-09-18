@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<title>Leonhard Euler-Cam</title>
+<style>
+  :root{
+    --page-bg: #d7cfbe;
+    --paper: #f3ebd9;
+    --ink: #222;
+    --rule: #353535;
+    --accent: #8a6b3c;
+    --frame: #1e4ea9;
+  }
+  html,body{height:100%}
+  body{
+    margin:0;
+    font: 16px/1.4 "Georgia","Times New Roman",serif;
+    color:var(--ink);
+    background:
+      linear-gradient(#eef0f7,#eef0f7) top/100% 120px no-repeat,
+      var(--page-bg);
+  }
+
+  .desktop{
+    max-width: 620px;
+    margin: 30px auto;
+    border: 8px solid var(--frame);
+    background: #e8dcc8;
+    box-shadow: 0 2px 0 rgba(0,0,0,.25) inset;
+  }
+
+  .paper{
+    margin: 0 6px 6px 6px;
+    background: var(--paper);
+    border: 1px solid #444;
+    padding: 0;
+  }
+
+  header{
+    padding: 14px 16px;
+    border-bottom: 3px solid var(--rule);
+    background: #e8d6b5;
+  }
+  header h1{
+    margin:0;
+    font-size: 24px;
+    letter-spacing:.3px;
+  }
+
+  .hero{
+    background: url("images/cu1.jpg") left top/180px auto no-repeat;
+    min-height: 110px; 
+  }
+
+  main{ padding: 14px 18px 24px 18px; }
+  p{ margin: .7em 0; text-align: justify; }
+
+  .math{
+    margin: 14px 0;
+    padding-left: 12px;
+    font-family: "Times New Roman", serif;
+  }
+  .math strong{ font-weight: 700 }
+  .smallcaps{ font-variant: small-caps; }
+
+  footer{
+    border-top: 1px solid #444;
+    margin: 12px 18px 0;
+    padding: 8px 0 14px;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+  <div class="desktop">
+    <div class="paper">
+      <header>
+        <h1>Leonhard Euler (1707–1783)</h1>
+      </header>
+
+      <div class="hero" aria-hidden="true"></div>
+
+      <main>
+        <p>
+          The greatest mathematician of the eighteenth century,
+          <strong>Leonhard Euler</strong> was born in Basel, Switzerland. There, he
+          studied under another giant of mathematics, Jean Bernoulli. In 1731 Euler
+          became a professor of physics and mathematics at <em>St. Petersburg Academy
+          of Sciences</em>. Euler’s influence was felt in physics and astronomy as well
+          as mathematics. He published over 800 different books and papers.
+        </p>
+
+        <p>
+          One can hardly do math without copying Euler. Notations still in use today,
+          such as <em>e</em> and <em>π</em>, were introduced in Euler’s writings. He is perhaps best
+          known for his research into mathematical analysis. Euler’s formula
+        </p>
+
+        <p class="math"><strong>cos(x) + i&nbsp;sin(x) = e<sup>ix</sup></strong></p>
+
+        <p>
+          demonstrates the relationship between algebra, complex analysis, and trigonometry.
+          From this equation, it’s easy to derive the identity
+        </p>
+
+        <p class="math"><strong>e<sup>iπ</sup> + 1 = 0</strong></p>
+
+        <p>
+          which relates the fundamental constants <em>0, 1, e, i, π</em> in a single elegant statement.
+          Euler died in 1783, leaving behind a legacy perhaps unmatched, and certainly unsurpassed,
+          in the annals of mathematics.
+        </p>
+      </main>
+
+      <footer>
+        Math 895: <span class="smallcaps">The History of Mathematics</span>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
