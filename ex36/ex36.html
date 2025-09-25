@@ -1,76 +1,103 @@
 <!DOCTYPE html>
 <html lang="vi">
-    <head>
-    <meta charset="utf-8">
-    <title>Choose a worry – simple Y2K</title>
-    <style>
-    body{
-        margin:0; padding:24px;
-        background: linear-gradient(180deg,#fff,#ffeef9 50%,#eef3ff);
-        font:16px/1.5 Arial, Helvetica, sans-serif;
+<head>
+<meta charset="utf-8">
+<title>Choose a worry – Cam</title>
+<style>
+  body{
+    margin:0; padding:24px;
+    background: linear-gradient(180deg,#fff,#ffeef9 50%,#eef3ff);
+    font:16px/1.5 Arial, Helvetica, sans-serif;
+    }
+  .grid{ display:flex; gap:24px; flex-wrap:wrap; }
+
+  .box{
+    position:relative;
+    width:220px;
+    padding:34px 16px 16px;
+    border-radius:16px;
+    background: linear-gradient(180deg,#fff,#ffe3f2);
+    box-shadow: 0 6px 18px rgba(255,100,180,.15);
+    border:1px solid #ffd3ea;
     }
 
-    .grid{ display:flex; gap:20px; flex-wrap:wrap; }
-
-    .box{
-        width:220px;
-        padding:14px 16px 16px;
-        border-radius:16px;
-        background: linear-gradient(180deg,#fff,#ffe3f2);
-        box-shadow: 0 6px 18px rgba(255,100,180,.15);
-        border:1px solid #ffd3ea;
+  .title{
+    position:absolute;
+    top:-14px; left:20px;
+    padding:4px 12px;
+    background:#ffccf0;
+    border-radius:12px;
+    font-weight:700;
+    color:#ff2e7a;
+    font-size:16px;
+    box-shadow:0 2px 6px rgba(0,0,0,.1);
     }
 
-    .box h3{
-        margin:0 0 8px;
-        font-size:22px;
-        font-weight:700;
-        color:#ff5aa5;
-        text-shadow:0 2px 0 #ffd6ea;
+  h3{
+    height:50px;
+    width:100%;
+    background:url("images/h3.png") no-repeat 0 100%;
+    margin : 0;
+    padding : 0;
     }
-
-    ul{ margin:0; padding-left:22px; list-style: circle; }
-    li{ margin:6px 0; }
-
-    a:link, a:visited{ text-decoration:none; }
-    a:link{ color:#2a6df2; }
-    a:visited{ color:#e53935; text-decoration:underline; }
-    a:hover{ color:#ff2e7a; text-shadow:0 0 6px rgba(255,46,122,.35); }
-
-    .box.alt{
-        background: linear-gradient(180deg,#fff,#f0e8ff);
-        border-color:#e6dbff;
-        box-shadow: 0 6px 18px rgba(140,100,255,.12);
+    ul
+    {
+    margin : 0;
+    padding : 10px 10px 25px 45px;
+    background:url("ex36/ex36/images/ul.png") no-repeat 0 100%;
+    list-style-image:url("ex36/ex36/images/li.png");
     }
-    </style>
-    </head>
-    
-    <body>
-    <div class="grid">
-    <div class="box">
-        <h3>Choose a worry</h3>
-        <ul>
-        <li><a href="#">Future</a></li>
-        <li><a href="#">Health</a></li>
-        <li><a href="#">Life</a></li>
-        <li><a href="#">Money</a></li>
-        <li><a href="#">Personal</a></li>
-        <li><a href="#">Phobias</a></li>
-        </ul>
-    </div>
+    /* unvisited link */
+    a:link {
+    color: red;
+    }
+    /* visited link */
+    a:visited {
+    color: green;
+    }
+    /* mouse over link */
+    a:hover {
+    color: hotpink;
+    padding-left:10px;
+    }
+    /* selected link */
+    a:active {
+    color: blue;
+    }
+  .box.alt{
+    background: linear-gradient(180deg,#fff,#f0e8ff);
+    border-color:#e6dbff;
+    box-shadow:0 6px 18px rgba(140,100,255,.12);
+    }
+</style>
+</head>
+<body>
 
-    <div class="box alt">
-        <h3>Choose a worry</h3>
-        <ul>
-        <li><a href="#">Future</a></li>
-        <li><a href="#">Health</a></li>
-        <li><a href="#">Life</a></li>
-        <li><a href="#">Money</a></li>
-        <li><a href="#">Personal</a></li>
-        <li><a href="#">Phobias</a></li>
-        </ul>
-    </div>
-    </div>
+<div class="grid">
+  <div class="box">
+    <div class="title">Choose a worry</div>
+    <ul>
+      <li><a href="#">Future</a></li>
+      <li><a href="#">Health</a></li>
+      <li><a href="#">Life</a></li>
+      <li><a href="#">Money</a></li>
+      <li><a href="#">Personal</a></li>
+      <li><a href="#">Phobias</a></li>
+    </ul>
+  </div>
 
-    </body>
+  <div class="box alt">
+    <div class="title">Choose a worry</div>
+    <ul>
+      <li><a href="#">Future</a></li>
+      <li><a href="#">Health</a></li>
+      <li><a href="#">Life</a></li>
+      <li><a href="#">Money</a></li>
+      <li><a href="#">Personal</a></li>
+      <li><a href="#">Phobias</a></li>
+    </ul>
+  </div>
+</div>
+
+</body>
 </html>
