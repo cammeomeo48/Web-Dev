@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Online Classifieds Search Form</title>
+<style>
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f2fbff;
+        padding: 24px;
+    }
+
+    .panel{
+        width: 720px;
+        margin: 0 auto;
+        background: #ccf6f5;                
+        border: 3px solid #1e63d6;          
+        box-shadow: 0 2px 0 rgba(0,0,0,.08);
+        padding: 14px 18px 18px;
+    }
+
+    .title{
+        color: #e61a2b;
+        font-size: 22px;
+        font-weight: 700;
+        font-style: italic;
+        margin: 2px 0 8px;
+    }
+    .rule{ border: 0; height: 1px; background: #b07b7b; margin: 6px 0 12px; }
+
+    .section{
+        margin: 10px 0 14px;
+    }
+    .section b{
+        display: inline-block;
+        margin-bottom: 6px;
+    }
+
+    .pubs{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px 16px;
+        max-width: 620px;
+    }
+
+    input[type="text"], input[type="date"]{
+        padding: 4px 6px;
+        border: 1px solid #bdbdbd;
+        border-radius: 3px;
+        background: #fff;
+    }
+    .full{ width: 95%; }
+
+    .actions{
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        margin-top: 8px;
+        padding-left: 6px;
+    }
+    .action{
+        text-align: center;
+        user-select: none;
+        cursor: pointer;
+    }
+    .action .icon{
+        font-size: 28px; line-height: 1;
+    }
+    .action .label{
+        display:block; margin-top:4px; font-weight:600;
+    }
+    .green{ color:#1a9c41; }
+    .blue{ color:#0d6efd; }
+    .red{ color:#e02424; }
+
+    .action img{ display:none; height:28px; }
+    .has-img img{ display:inline-block; }
+    .has-img .icon{ display:none; }
+
+    .radio-columns{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(220px, 1fr)); 
+    column-gap: 40px;
+    row-gap: 6px;
+    align-items: start;
+    }
+    .radio-columns .col label{
+    display: block;      
+    margin-bottom: 6px;
+    }
+
+</style>
+</head>
+<body>
+
+<div class="panel">
+  <div class="title">Online Classifieds Search Form</div>
+  <div class="rule"></div>
+
+  <div class="section">
+    <b>1) Search for a classified in the following sections:</b>
+    <div class="radio-columns">
+        <div class="col">
+            <label><input type="radio" name="sec"> Employment</label><br>
+            <label><input type="radio" name="sec"> For Sale</label><br>
+            <label><input type="radio" name="sec"> Housing</label>
+        </div>
+        <div class="col">
+            <label><input type="radio" name="sec"> Personal</label><br>
+            <label><input type="radio" name="sec"> Miscellaneous</label><br>
+            <label><input type="radio" name="sec"> All of the above</label>
+        </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <b>2) Search the following publications:</b>
+    <div class="pubs">
+      <label><input type="checkbox"> Midwest times</label>
+      <label><input type="checkbox"> Modern News</label>
+      <label><input type="checkbox"> Employment Today</label>
+      <label><input type="checkbox"> Great Lakes Classifieds</label>
+      <label><input type="checkbox"> Middleton Daily</label>
+      <label><input type="checkbox"> Cashtown Daily News</label>
+    </div>
+  </div>
+
+  <div class="section">
+    <b>3) From to</b>
+    <input type="text" id="from" placeholder="mm/dd/yy" size="12">
+    &nbsp;to&nbsp;
+    <input type="text" id="to" placeholder="mm/dd/yy" size="12">
+  </div>
+
+  <div class="section">
+    <b>4) Enter a few keywords to describe the classified.</b><br>
+    <input type="text" id="kw" class="full">
+  </div>
+
+  <div class="section">
+    <b>5) Click one of the options below:</b>
+    <div class="actions">
+      <div class="action green" onclick="doSearch()">
+        <span class="icon">✔️</span>
+        <img src="Search.gif" alt="Search icon">
+        <span class="label">Search</span>
+      </div>
+      <div class="action blue" onclick="openHelp()">
+        <span class="icon">❓</span>
+        <img src="Help.gif" alt="Help icon">
+        <span class="label">Help</span>
+      </div>
+      <div class="action red" onclick="doCancel()">
+        <span class="icon">✖️</span>
+        <img src="Cancel.gif" alt="Cancel icon">
+        <span class="label">Cancel</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function doSearch(){
+    alert("Search simulation...");
+  }
+  function openHelp(){
+    const helpHtml = `
+      <h3>Online Classifieds – Help</h3>
+      <p>Chọn mục, báo, ngày và từ khoá rồi bấm <b>Search</b>.</p>
+      <p>Bấm <b>Cancel</b> để xoá dữ liệu.</p>`;
+    const w = window.open("", "_blank", "width=480,height=360");
+    if(w){ w.document.write(helpHtml); w.document.close(); }
+  }
+  function doCancel(){
+    document.querySelectorAll('input[type="text"]').forEach(i => i.value = "");
+    document.querySelectorAll('input[type="radio"],input[type="checkbox"]').forEach(i => i.checked = false);
+    alert("Form cleared.");
+  }
+</script>
+
+</body>
+</html>
