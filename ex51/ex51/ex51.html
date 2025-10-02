@@ -1,0 +1,188 @@
+<html>
+    <head>
+    <title>Newborn Registration</title>
+    <style>
+    :root{
+        --bg: #eaf7f7;
+        --teal1:#0f6e72;   
+        --teal2:#0a5b5e;   
+        --card:#0f6e72cc; 
+        --ink:#f2fffe;
+        --field:#ffffff;
+        --line:#7ed6d9;
+        --accent:#ffd166; 
+        --focus:#7be5ff;
+    }
+    html,body{margin:0}
+    body{
+        font:16px/1.55 "Segoe UI", Arial, sans-serif;
+        background:
+        radial-gradient(1000px 600px at 15% 10%, #f7ffff 0%, transparent 60%),
+        radial-gradient(1000px 600px at 85% 90%, #f0fffb 0%, transparent 60%),
+        var(--bg);
+        color:#102a2a;
+        padding:24px;
+    }
+
+    .banner{
+        max-width: 880px;
+        margin: 0 auto 18px;
+        color: var(--ink);
+        background: linear-gradient(180deg,var(--teal1),var(--teal2));
+        border: 2px solid #1e63d6;
+        border-bottom-width: 0;
+        padding: 16px 22px;
+        position: relative;
+    }
+    .banner h1{
+        margin: 0;
+        font-weight: 800;
+        letter-spacing:.2px;
+        font-size: 26px;
+    }
+    .banner small{
+        position:absolute; right:22px; bottom:10px;
+        color: var(--accent); font-weight:700;
+    }
+    .banner .rule{
+        height:3px; background: var(--accent);
+        margin-top:8px;
+    }
+
+    .card{
+        max-width: 880px;
+        margin: 0 auto;
+        background: linear-gradient(135deg, #ffffff80, #ffffff60);
+        border: 2px solid #1e63d6;
+        padding: 22px 26px 26px;
+        backdrop-filter: blur(4px);
+        border-top-width: 0;
+    }
+
+    .title{
+        text-align:center;
+        font-size: 30px;
+        font-weight: 800;
+        color:#154d4f;
+        margin: 4px 0 10px;
+        text-shadow: 0 1px 0 #ffffff;
+    }
+    hr.sep{ border:0; height:1px; background: var(--line); margin:8px 0 16px; }
+
+    form{ color:#133; }
+    .row{ display:flex; align-items:center; gap:14px; margin:10px 0; flex-wrap:wrap; }
+    .label{ min-width: 260px; color:#0e3f41; font-weight:600; }
+    .inline{ color:#0e3f41; }
+    .grid2{ display:grid; grid-template-columns: 1fr 1fr; gap:10px 16px; }
+
+
+    input[type="text"], select, textarea{
+        background: var(--field);
+        border:1px solid #b6dfe1;
+        border-radius: 10px;
+        padding: 8px 10px;
+        outline: none;
+        box-shadow: inset 0 0 0 1px #ffffff;
+        transition: box-shadow .15s ease, border-color .15s ease;
+    }
+    input:focus, select:focus, textarea:focus{
+        border-color: var(--focus);
+        box-shadow: 0 0 0 3px #7be5ff55, inset 0 0 0 1px #ffffff;
+    }
+    .w-xs{ width: 110px; }
+    .w-sm{ width: 220px; }
+    textarea{ width: 520px; height: 90px; }
+    select[multiple]{ width: 260px; height: 110px; background:#fff }
+
+    .actions{ display:flex; justify-content:center; gap:12px; margin-top:16px; }
+    button{
+        padding:10px 18px; border-radius:10px; border:1px solid #2a5f61;
+        background: linear-gradient(180deg,#f8ffff,#e8fffe);
+        cursor:pointer; font-weight:700;
+    }
+    button:hover{ filter: brightness(0.98); }
+    </style>
+    </head>
+    <body>
+        <header class="banner">
+            <img src="Logo.gif" style="height:50px; object-fit:contain; vertical-align:left;">
+        </header>
+
+        <main class="card">
+        <div class="title">Newborn Registration</div>
+        <hr class="sep">
+
+        <form id="regForm">
+            <div class="row">
+            <div class="label">Date</div>
+            <input type="text" class="w-sm" name="date" placeholder="mm/dd/yy">
+            </div>
+
+            <div class="row">
+            <div class="label">1) Infant's first name:</div>
+            <input type="text" class="w-sm" name="infant_first">
+            <span class="inline">Last:</span>
+            <input type="text" class="w-sm" name="infant_last">
+            </div>
+
+            <div class="row">
+            <div class="label">2) Medical Record #:</div>
+            <input type="text" class="w-sm" name="mrn">
+            </div>
+
+            <div class="row">
+            <div class="label">3) Date of birth:</div>
+            <input type="text" class="w-sm" name="dob" placeholder="mm/dd/yy">
+            </div>
+
+            <div class="row">
+            <div class="label">4) Birth weight:</div>
+            <input type="text" class="w-xs" name="weight">
+            </div>
+
+            <div class="row">
+            <div class="label">5) APGAR score:</div>
+            <input type="text" class="w-xs" name="apgar">
+            </div>
+
+            <div class="row">
+            <div class="label">6) Mother's first name:</div>
+            <div class="grid2">
+                <input type="text" name="mom_first" placeholder="First">
+                <input type="text" name="mom_last"  placeholder="Last">
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="label">7) Father's first name:</div>
+            <div class="grid2">
+                <input type="text" name="dad_first" placeholder="First">
+                <input type="text" name="dad_last"  placeholder="Last">
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="label">8) Physician (check all that apply):</div>
+            <select name="physicians" multiple>
+                <option>Dr. Warren Albert</option>
+                <option>Dr. Maria Alvarez</option>
+                <option>Dr. Karen Brinkman</option>
+                <option>Dr. Micheal Kerry</option>
+            </select>
+            </div>
+
+            <div class="actions">
+            <button type="submit">Register</button>
+            <button type="reset">Cancel</button>
+            </div>
+        </form>
+        </main>
+
+        <script>
+        document.getElementById('regForm').addEventListener('submit', e=>{
+            e.preventDefault();
+            alert('Registration submitted!');
+        });
+        </script>
+    </body>
+</html>
