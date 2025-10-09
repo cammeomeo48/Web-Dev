@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <title>Product List – Cam</title>
+        <style>
+            body{font-family:Arial,Helvetica,sans-serif;background:#fbfeff;padding:24px}
+            .card{max-width:720px;margin:auto;border:1px solid #d9e2ef;background:#fff;padding:16px;border-radius:6px}
+            table{width:100%;border-collapse:collapse;margin-top:8px}
+            th,td{border:1px solid #cbd6e2;padding:8px}
+            th{background:#e6f0ff;text-align:left}
+            input[type="number"]{width:80px;padding:6px;border:1px solid #ccc;border-radius:4px}
+            .right{text-align:right}
+            .total-line{display:flex;align-items:center;gap:10px;justify-content:flex-end;margin-top:10px}
+            .btn{background:#f7b500;color:#222;border:1px solid #d79a00;padding:8px 14px;border-radius:4px;cursor:pointer}
+        </style>
+    </head>
+    <body>
+        <div class="card">
+        <h2>Product List</h2>
+
+        <form action="product-sum.html" method="get" id="frm">
+            <table>
+            <thead>
+                <tr>
+                <th>Part Number</th>
+                <th>Description</th>
+                <th class="right">Price</th>
+                <th class="right">Qty</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td>C112 <input type="hidden" name="part[]" value="C112"></td>
+                <td>Mouse <input type="hidden" name="desc[]" value="Mouse"></td>
+                <td class="right">$ <span>19.95</span><input type="hidden" name="price[]" value="19.95"></td>
+                <td class="right"><input type="number" name="qty[]" min="0" value="0"></td>
+                </tr>
+                <tr>
+                <td>B124 <input type="hidden" name="part[]" value="B124"></td>
+                <td>Keyboard US <input type="hidden" name="desc[]" value="Keyboard US"></td>
+                <td class="right">$ <span>29.95</span><input type="hidden" name="price[]" value="29.95"></td>
+                <td class="right"><input type="number" name="qty[]" min="0" value="0"></td>
+                </tr>
+                <tr>
+                <td>U125 <input type="hidden" name="part[]" value="U125"></td>
+                <td>USB KingMax <input type="hidden" name="desc[]" value="USB KingMax"></td>
+                <td class="right">$ <span>39.95</span><input type="hidden" name="price[]" value="39.95"></td>
+                <td class="right"><input type="number" name="qty[]" min="0" value="0"></td>
+                </tr>
+            </tbody>
+            </table>
+
+            <div class="total-line">
+            <label>Total:</label>
+            <input type="text" name="pretend_total" >
+            <button type="submit" class="btn">Sum</button>
+            </div>
+        </form>
+        </div>
+    </body>
+</html>

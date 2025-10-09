@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>Contact-Cam</title>
+        <style>
+            body{font-family:Arial,Helvetica,sans-serif;background:#fafafa;padding:24px}
+            .card{max-width:720px;margin:auto;border:1px solid #ddd;background:#fff}
+            .hd{padding:12px 16px;font-weight:700;border-bottom:1px solid #eee}
+            form{padding:16px}
+            label{display:block;margin:10px 0 4px}
+            input,select,textarea{width:100%;padding:8px;border:1px solid #ccc;border-radius:4px}
+            textarea{height:140px}
+            .row{display:flex;gap:16px}
+            .row>div{flex:1}
+            .actions{padding:14px 16px;border-top:1px solid #eee}
+            button{background:#8a1c4a;color:#fff;border:0;padding:10px 16px;border-radius:4px;cursor:pointer}
+        </style>
+    </head>
+    <body>
+        <div class="card">
+        <div class="hd">Contact the editorial office</div>
+        <form action="contact-result.html" method="get">
+            <label>Full name</label>
+            <input type="text" name="fullname" required>
+
+            <div class="row">
+            <div>
+                <label>Email</label>
+                <input type="email" name="email" required>
+            </div>
+            <div>
+                <label>Send to</label>
+                <select name="sendto">
+                <option>Editorial board</option>
+                <option>News Department</option>
+                <option>Board of Perspectives</option>
+                <option>World Board</option>
+                <option>Business Department</option>
+                </select>
+            </div>
+            </div>
+
+            <label>Title</label>
+            <input type="text" name="title" required>
+
+            <label>Content</label>
+            <textarea name="content" required></textarea>
+
+            <div class="actions">
+            <button type="submit">Send</button>
+            </div>
+        </form>
+        </div>
+    </body>
+</html>

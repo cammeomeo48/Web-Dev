@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Contact Result - Cam</title>
+        <style>
+        body{font-family:Arial,Helvetica,sans-serif;background:#f7fbff;padding:24px}
+        .card{max-width:720px;margin:auto;border:1px solid #cfe3ff;background:#fff;padding:18px;border-radius:6px}
+        h2{margin:0 0 12px}
+        .line{margin:6px 0}
+        pre{white-space:pre-wrap;word-wrap:break-word;background:#f6f8fa;border:1px solid #eee;padding:12px;border-radius:4px}
+        a{display:inline-block;margin-top:12px}
+        </style>
+    </head>
+    <body>
+        <div class="card">
+        <h2>Message preview (via GET)</h2>
+        <div class="line"><b>Full name:</b> <span id="fullname"></span></div>
+        <div class="line"><b>Email:</b> <span id="email"></span></div>
+        <div class="line"><b>Send to:</b> <span id="sendto"></span></div>
+        <div class="line"><b>Title:</b> <span id="title"></span></div>
+        <div class="line"><b>Content:</b></div>
+        <pre id="content"></pre>
+
+        <a href="contact.html">↩ Back</a>
+        </div>
+
+        <script>
+        const p = new URLSearchParams(location.search);
+        const get = k => (p.get(k) ?? '').toString();
+        document.getElementById('fullname').textContent = get('fullname');
+        document.getElementById('email').textContent   = get('email');
+        document.getElementById('sendto').textContent  = get('sendto');
+        document.getElementById('title').textContent   = get('title');
+        document.getElementById('content').textContent = get('content');
+        </script>
+    </body>
+</html>

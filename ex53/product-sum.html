@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <title>Product Sum – Cam </title>
+        <style>
+            body{font-family:Arial,Helvetica,sans-serif;background:#f6fbff;padding:24px}
+            .card{max-width:720px;margin:auto;border:1px solid #d9e2ef;background:#fff;padding:16px;border-radius:6px}
+            table{width:100%;border-collapse:collapse;margin-top:8px}
+            th,td{border:1px solid #cbd6e2;padding:8px}
+            th{background:#e6f0ff;text-align:left}
+            .right{text-align:right}
+            .total{font-weight:700}
+            a{display:inline-block;margin-top:12px}
+        </style>
+    </head>
+    <body>
+        <div class="card">
+        <h2>Order Summary (via GET)</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Part</th><th>Description</th><th class="right">Price</th><th class="right">Qty</th><th class="right">Line total</th>
+            </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+            <tfoot>
+            <tr>
+                <td colspan="4" class="right total">Grand Total</td>
+                <td class="right total" id="grand">$0.00</td>
+            </tr>
+            </tfoot>
+        </table>
+
+        <a href="product.html">↩ Back</a>
+        </div>
+
+        <script>
+        const p = new URLSearchParams(location.search);
+        const parts = p.getAll('part[]');
+        const descs = p.getAll('desc[]');
+        const prices = p.getAll('price[]').map(Number);
+        const qtys   = p.getAll('qty[]').map(v => Number(v||0));
+
+        const tbody = document.getElementById('rows');
+        let grand = 0;
+
+        for(let i=0;i<parts.length;i++){
+            const price = prices[i]||0, qty = qtys[i]||0, line = +(price*qty).toFixed(2);
+            grand += line;
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+            <td>${parts[i]||''}</td>
+            <td>${descs[i]||''}</td>
+            <td class="right">$${price.toFixed(2)}</td>
+            <td class="right">${qty}</td>
+            <td class="right">$${line.toFixed(2)}</td>`;
+            tbody.appendChild(tr);
+        }
+        document.getElementById('grand').textContent = `$${grand.toFixed(2)}`;
+        </script>
+    </body>
+</html>
