@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>
+            Cam
+        </title>
+        <script src="../js/mainjs.js"></script>
+        <script type="text/javascript">
+            function call_factorial()
+            {
+                n=my_form.input_n.value
+                result=calc_factorial(n)
+                td_result.innerText=result
+            }
+        </script>
+    </head>
+    <body>
+        <form name="my_form">
+            <table border="1">
+                <tr>
+                    <td>n:</td>
+                    <td>
+                        <input type="text" name="input_n" id="input_n" value="5"/>!
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="button" onclick="call_factorial()">Calc</button>
+                         <button type="button" onclick="call_factorial()">Calc</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Result:
+                    </td>
+                    <td id="td_result"></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
+<!--funtion name khac name id <p id="abc"> va <p onclick-="abc"> la sai vi ten no giong nhau-->
+<!--djng inline khi no simple thoi <p onclick-"abc1"/>-->

@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title>
+            Cam
+        </title>
+        <script type="text/javascript">
+            var p_item=(
+                ID:"P01",
+                Name: "Coca",
+                Price: 35,
+                Quantity: 10
+            )
+        </script>
+    </head>
+    <body>
+        <table border="1">
+            <tr>
+                <td>ID</td>
+                <td id=td_id></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td id=td_name></td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td id=td_price></td>
+            </tr>
+            <tr>
+                <td>Quantity</td>
+                <td id=td_quantity></td>
+            </tr>
+            <tr>
+                <td>Total Value</td>
+                <td id=td_value></td>
+            </tr>
+            <tr>
+                <td>Image</td>
+                <td>
+                    <img id="img_product"/>
+                </td>
+            </tr>
+        </table>
+        <script type="text/javascript">
+            td_id.innerText=p_item.ID
+            td_name.innerText=p_item.Name
+            td_price.innerText=p_item.Price
+            td_quantity.innerText=p_item.Quantity
+            td_value.innerText=p_item.Price*p_item.Quantity
+            img_product.src="../images/coca.jpg"
+        </script>
+    </body>
+</html>
