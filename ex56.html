@@ -1,0 +1,88 @@
+<html>
+<head>
+    <title>String Processing-Cam</title>
+    <style>
+    body{font-family:Arial;background:#f5f9ff;padding:30px}
+    table{border-collapse:collapse;margin:auto;width:700px}
+    th{background:#dfefff;padding:10px;font-size:18px}
+    td{border:1px solid #ccc;padding:8px;vertical-align:top}
+    textarea{width:100%;height:100px;border:1px solid #aaa;border-radius:4px;padding:6px}
+    button{width:100%;padding:8px;margin:2px 0;border:1px solid #aaa;border-radius:4px;cursor:pointer}
+    button:hover{background:#eef}
+    .center{text-align:center}
+    </style>
+</head>
+<body>
+    <h2 class="center">Using String Processing Functions</h2>
+    <table>
+        <tr>
+            <th>Input Data:</th>
+            <th>Result:</th>
+        </tr>
+        <tr>
+            <td><textarea id="input"></textarea></td>
+            <td><textarea id="output" readonly></textarea></td>
+        </tr>
+        <tr>
+            <td><button onclick="enterData()">Enter Data</button></td>
+            <td><button onclick="countUpper()">Count uppercase letters</button></td>
+        </tr>
+        <tr>
+            <td><button onclick="toUpper()">Uppercase display</button></td>
+            <td><button onclick="oneWord()">Output one word per line</button></td>
+        </tr>
+        <tr>
+            <td><button onclick="toLower()">Lowercase display</button></td>
+            <td><button onclick="wordCount()">Word count</button></td>
+        </tr>
+        <tr>
+            <td><button onclick="countLower()">Count lowercase characters</button></td>
+            <td><button onclick="vowelConsonant()">Print vowels & consonants</button></td>
+        </tr>
+        <tr>
+            <td colspan="2" class="center"><small>W3C’s String Processing Website</small></td>
+        </tr>
+    </table>
+
+    <script>
+        function getText(){ return document.getElementById("input").value; }
+        function show(out){ document.getElementById("output").value = out; }
+
+        function enterData(){ show(getText()); }
+
+        function countUpper(){
+        const text=getText();
+        const count=(text.match(/[A-Z]/g)||[]).length;
+        show(`Uppercase letters: ${count}`);
+        }
+
+        function toUpper(){ show(getText().toUpperCase()); }
+
+        function oneWord(){
+        const words=getText().split(/\s+/).filter(w=>w!=="");
+        show(words.join("\n"));
+        }
+
+        function toLower(){ show(getText().toLowerCase()); }
+
+        function wordCount(){
+        const words=getText().split(/\s+/).filter(w=>w!=="");
+        show(`Word count: ${words.length}`);
+        }
+
+        function countLower(){
+        const text=getText();
+        const count=(text.match(/[a-z]/g)||[]).length;
+        show(`Lowercase letters: ${count}`);
+        }
+
+        function vowelConsonant(){
+        const text=getText().toLowerCase();
+        const vowels=(text.match(/[aeiou]/g)||[]).length;
+        const consonants=(text.match(/[bcdfghjklmnpqrstvwxyz]/g)||[]).length;
+        show(`Vowels: ${vowels}\nConsonants: ${consonants}`);
+        }
+    </script>
+
+</body>
+</html>

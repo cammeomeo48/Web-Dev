@@ -1,0 +1,69 @@
+<html>
+<head>
+    <title>Quadratic Equation-Cam</title>
+    <style>
+    body{font-family:Arial;background:#f8fff8;padding:30px}
+    table{border-collapse:collapse;margin:auto;background:#f5fff5}
+    th{background:#d5f0d5;padding:10px;font-size:18px}
+    td{border:1px solid #ccc;padding:8px 10px}
+    input[type="text"]{width:160px;padding:6px;border:1px solid #bbb;border-radius:4px}
+    #res{color:red;font-weight:700}
+    button{padding:8px 14px;margin:4px;border-radius:4px;border:1px solid #aaa;cursor:pointer}
+    button:hover{background:#eef}
+    </style>
+</head>
+<body>
+
+<table>
+    <tr>
+        <th colspan="2">The Quadratic Equation</th>
+    </tr>
+    <tr>
+        <td>a:</td><td><input type="text" id="a" value="1"></td>
+    </tr>
+    <tr>
+        <td>b:</td><td><input type="text" id="b" value="3"></td>
+    </tr>
+    <tr>
+        <td>c:</td><td><input type="text" id="c" value="-4"></td>
+    </tr>
+    <tr>
+        <td>Result:</td><td><input type="text" id="res" readonly></td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align:center">
+        <button onclick="solve()">Find solution</button>
+        <button onclick="clearAll()">Clear</button>
+        </td>
+    </tr>
+</table>
+
+<script>
+function solve(){
+  const a=parseFloat(document.getElementById("a").value);
+  const b=parseFloat(document.getElementById("b").value);
+  const c=parseFloat(document.getElementById("c").value);
+  const res=document.getElementById("res");
+
+  if(a===0){
+    res.value="Not a quadratic equation!";
+    return;
+  }
+  const delta=b*b-4*a*c;
+  if(delta<0) res.value="No real roots";
+  else if(delta===0){
+    const x=-b/(2*a);
+    res.value=`x1=x2=${x}`;
+  }else{
+    const x1=(-b+Math.sqrt(delta))/(2*a);
+    const x2=(-b-Math.sqrt(delta))/(2*a);
+    res.value=`x1=${x1} ; x2=${x2}`;
+  }
+}
+function clearAll(){
+  a.value=""; b.value=""; c.value=""; res.value="";
+}
+</script>
+
+</body>
+</html>

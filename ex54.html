@@ -1,0 +1,74 @@
+<html >
+<head>
+    <title>Math Function-Cam</title>
+    <style>
+    body{font-family:Arial;background:#f3f9ff;padding:30px}
+    table{border-collapse:collapse;margin:auto}
+    td{border:1px solid #ccc;padding:8px 12px;text-align:center}
+    input[type="text"]{width:140px;padding:6px;border:1px solid #bbb;border-radius:4px}
+    button{padding:6px 12px;margin:2px;border:1px solid #777;border-radius:4px;background:#f2f2f2;cursor:pointer}
+    button:hover{background:#e1e1e1}
+    </style>
+</head>
+<body>
+
+<table>
+  <tr>
+    <td>a:</td>
+    <td><input type="text" id="a" value="30"></td>
+</tr>
+  <tr>
+    <td>b:</td>
+    <td><input type="text" id="b" value="45"></td>
+  </tr>
+  <tr>
+    <td>b:</td>
+    <td><input type="text" id="c" value="45"></td>
+  </tr>
+  <tr>
+    <td>c:</td>
+    <td><input type="text" id="d" value="90"></td>
+  </tr>
+  <tr>
+    <td>Result:</td>
+    <td><input type="text" id="result" readonly></td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <button onclick="calcMax()">MAX</button>
+      <button onclick="calcMin()">MIN</button>
+      <button onclick="calcSin()">sin(a)</button>
+      <button onclick="calcCos()">cos(a)</button>
+      <button onclick="calcPow()">a^b</button>
+    </td>
+  </tr>
+</table>
+
+<script>
+function getValues(){
+  return [parseFloat(a.value), parseFloat(b.value), parseFloat(c.value)];
+}
+function calcMax(){
+  const [x,y,z]=getValues();
+  result.value = Math.max(x,y,z);
+}
+function calcMin(){
+  const [x,y,z]=getValues();
+  result.value = Math.min(x,y,z);
+}
+function calcSin(){
+  const x = parseFloat(a.value);
+  result.value = Math.sin(x*Math.PI/180);
+}
+function calcCos(){
+  const x = parseFloat(a.value);
+  result.value = Math.cos(x*Math.PI/180);
+}
+function calcPow(){
+  const x=parseFloat(a.value), y=parseFloat(b.value);
+  result.value = Math.pow(x,y);
+}
+</script>
+
+</body>
+</html>
