@@ -24,7 +24,7 @@
     background-image: radial-gradient(60% 40% at 10% -10%, rgba(191,214,246,.35), transparent 60%),
                       radial-gradient(50% 35% at 95% 0%, rgba(254,199,228,.25), transparent 65%);
   }
-  /* Header glass */
+
   header{
     position:sticky; top:0; z-index:20; backdrop-filter: blur(14px) saturate(1.15);
     background:linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,.6));
@@ -82,10 +82,8 @@
     background:var(--card); border:1px solid var(--border); border-radius:12px; padding:10px 12px; cursor:pointer;
   }
 
-  /* Status line */
   .status{font-size:12px; color:var(--muted); margin-top:8px}
 
-  /* Grid */
   main{max-width:1100px; margin:18px auto; padding:0 16px}
   .grid{display:grid; grid-template-columns:repeat(12,1fr); gap:18px}
   .card{
@@ -116,32 +114,17 @@
   }
   [data-theme="dark"] .badge{ background:#0b2a42; color:#cde9ff; border-color:#103651 }
 
-  /* Empty */
+
   .empty{
     grid-column:1/-1; padding:28px; text-align:center; color:var(--muted);
     border:1px dashed var(--border); border-radius:16px; background:var(--card)
   }
 
-  /* Skeleton shimmer */
   .skeleton{
     grid-column: span 12; display:grid; grid-template-columns:140px 1fr; gap:0;
     min-height:140px; border-radius:18px; overflow:hidden; background:var(--card); border:1px solid var(--border);
   }
-  @media(min-width:760px){ .skeleton{ grid-column: span 6; } }
-  @media(min-width:1040px){ .skeleton{ grid-column: span 4; } }
-  .sk-thumb{background:linear-gradient(90deg,#e9eef6 0%,#f3f6fb 50%,#e9eef6 100%); animation:sh 1.2s infinite linear}
-  .sk-lines{padding:14px}
-  .sk-line{
-    height:12px; margin:8px 0; border-radius:8px;
-    background:linear-gradient(90deg,#e9eef6 0%,#f3f6fb 50%,#e9eef6 100%); animation:sh 1.2s infinite linear
-  }
-  @keyframes sh{ to{ background-position:200% 0; } }
-
-  /* Focus ring */
-  .select:focus, .control:has(input:focus), .btn:focus, .toggle:focus{ outline:none; box-shadow: var(--ring); }
-
-  /* Small helpers */
-  .sr{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+ 
 </style>
 </head>
 <body>
@@ -190,7 +173,6 @@
 
     let cache = [];
 
-    // THEME
     (function initTheme(){
       const saved = localStorage.getItem('pc_theme');
       if(saved) document.documentElement.setAttribute('data-theme', saved);
@@ -207,7 +189,6 @@
       themeBtn.setAttribute('aria-pressed', document.documentElement.getAttribute('data-theme') === 'dark');
     });
 
-    // Utils
     function fmt(d){
       const dt = new Date(d);
       return isNaN(dt) ? d : dt.toLocaleString('vi-VN', {hour:'2-digit', minute:'2-digit', day:'2-digit', month:'2-digit', year:'numeric'});
@@ -218,7 +199,6 @@
       return m ? m[1] : null;
     }
 
-    // Skeleton while loading
     function showSkeleton(n=9){
       grid.innerHTML = '';
       for(let i=0;i<n;i++){
@@ -240,7 +220,6 @@
       }
     }
 
-    // Rendering
     function render(list){
       grid.innerHTML = '';
       if(!list.length){
@@ -289,7 +268,6 @@
       }
     }
 
-    // Filter + Sort
     function applyView(){
       const q = (searchEl.value||'').toLowerCase().trim();
       let list = cache;
@@ -309,7 +287,6 @@
       statusEl.textContent = `Hiển thị ${list.length}/${cache.length} bài • ${new Date().toLocaleTimeString('vi-VN')}`;
     }
 
-    // RSS
     async function fetchRSS(url){
       try{
         const res = await fetch(url);
@@ -355,12 +332,10 @@
       }
     }
 
-    // Events
     searchEl.addEventListener('input', applyView);
     sortEl.addEventListener('change', applyView);
     reloadBtn.addEventListener('click', load);
 
-    // Init + Auto refresh
     load();
     setInterval(load, 5*60*1000);
   </script>
