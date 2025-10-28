@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tuổi Trẻ - Dự báo thời tiết (Redesign)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root{
+      --bg:#0a0f1a;
+      --bg-2:#0f172a;
+      --glass: rgba(255,255,255,.06);
+      --glass-2: rgba(255,255,255,.12);
+      --text:#e8f1ff;
+      --muted:#9db1d1;
+      --accent:#7c9aff;
+      --accent-2:#60e2ff;
+      --ok:#22c55e;
+      --warn:#f59e0b;
+      --err:#ef4444;
+      --ring: rgba(124,154,255,.25);
+      --shadow: 0 10px 30px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.04);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(1000px 600px at 10% -10%, #1d2b78 0%, transparent 60%),
+        radial-gradient(900px 600px at 110% 10%, #0f5e6a 0%, transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg-2));
+      display:flex; align-items:center; justify-content:center; padding:28px;
+    }
+
+    .shell{width:min(1040px,100%); display:grid; gap:16px}
+    header{
+      display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      padding:10px 14px; border-radius:999px;
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      box-shadow: var(--shadow);
+      border:1px solid var(--glass);
+    }
+    .brand i{color:var(--accent-2)}
+    h1{margin:0; font-size:clamp(18px,3vw,24px); letter-spacing:.2px; font-weight:700}
+
+    .panel{
+      display:grid; grid-template-columns: 340px 1fr; gap:18px;
+    }
+    @media (max-width:900px){
+      .panel{grid-template-columns: 1fr}
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--glass);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+
+    .controls{
+      padding:18px; display:grid; gap:14px;
+    }
+    .field{
+      display:grid; gap:8px;
+    }
+    label{color:var(--muted); font-size:13px}
+    .input{
+      display:flex; align-items:center; gap:10px;
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+      border:1px solid var(--glass-2); border-radius:14px; padding:12px 14px;
+      outline: none; box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+    }
+    .input:focus-within{
+      border-color: var(--accent); box-shadow: 0 0 0 6px var(--ring), inset 0 1px 0 rgba(255,255,255,.04);
+    }
+    .input input{
+      flex:1; background:transparent; border:0; outline:0; color:var(--text);
+      font-weight:600; letter-spacing:.2px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:12px 16px; border-radius:14px; border:1px solid transparent; cursor:pointer;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color:#04121e; font-weight:800; letter-spacing:.25px;
+      box-shadow: 0 10px 20px rgba(124,154,255,.25), inset 0 1px 0 rgba(255,255,255,.35);
+      transition: transform .06s ease;
+    }
+    .btn:active{ transform: translateY(1px) }
+
+    .status{
+      display:flex; align-items:center; gap:8px; padding:14px 18px; color:var(--muted);
+      border-top-left-radius: var(--radius); border-top-right-radius: var(--radius);
+      border-bottom:1px dashed var(--glass);
+    }
+    .status .pulse{
+      width:9px; height:9px; border-radius:999px; background:var(--accent);
+      box-shadow: 0 0 0 0 rgba(124,154,255,.65); animation:pulse 2s infinite;
+    }
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(124,154,255,.55)}70%{box-shadow:0 0 0 14px rgba(124,154,255,0)}100%{box-shadow:0 0 0 0 rgba(124,154,255,0)}}
+
+    .result{
+      padding:18px;
+      display:grid; gap:14px;
+    }
+
+    .statgrid{
+      display:grid; grid-template-columns: repeat(3, 1fr); gap:12px;
+    }
+    @media (max-width:700px){
+      .statgrid{grid-template-columns: 1fr 1fr}
+    }
+    .stat{
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      border:1px solid var(--glass); border-radius:14px; padding:14px;
+      display:grid; gap:6px; min-height:90px;
+    }
+    .stat .label{color:var(--muted); font-size:12px}
+    .stat .value{font-size:28px; font-weight:800; letter-spacing:.3px}
+    .stat .icon{font-size:22px; opacity:.85}
+
+    table{
+      width:100%; border-collapse:separate; border-spacing:0;
+      border:1px solid var(--glass); border-radius:14px; overflow:hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+    }
+    thead th{
+      text-align:left; padding:12px 14px; font-size:12px; color:var(--muted);
+      background: linear-gradient(180deg, rgba(124,154,255,.15), rgba(124,154,255,.05));
+      border-bottom:1px solid var(--glass);
+    }
+    tbody td{
+      padding:14px; border-bottom:1px dashed var(--glass); vertical-align:middle;
+    }
+    tbody tr:last-child td{ border-bottom:0 }
+    .center{ text-align:center }
+
+    .source{ font-size:12px; color:var(--muted) }
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border-radius:999px;
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border:1px solid var(--glass);
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand">
+        <i class="fa-solid fa-cloud-sun"></i>
+        <h1>Tuổi Trẻ — Dự báo thời tiết</h1>
+      </div>
+      <div class="chip"><i class="fa-solid fa-globe-asia"></i> Việt Nam (Open-Meteo)</div>
+    </header>
+
+    <div class="panel">
+      <!-- LEFT: Controls -->
+      <div class="card">
+        <div class="controls">
+          <div class="field">
+            <label for="place"><i class="fa-solid fa-location-dot"></i> Tỉnh/Thành</label>
+            <div class="input">
+              <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+              <input id="place" list="vnplaces" type="text" value="Hà Nội" placeholder="Nhập tên: Hà Nội, TP.HCM, Đà Nẵng…">
+            </div>
+            <datalist id="vnplaces">
+              <option value="Hà Nội"></option>
+              <option value="Thành phố Hồ Chí Minh"></option>
+              <option value="Hải Phòng"></option>
+              <option value="Đà Nẵng"></option>
+              <option value="Cần Thơ"></option>
+              <option value="An Giang"></option>
+              <option value="Bà Rịa - Vũng Tàu"></option>
+              <option value="Bắc Giang"></option>
+              <option value="Bắc Kạn"></option>
+              <option value="Bạc Liêu"></option>
+              <option value="Bắc Ninh"></option>
+              <option value="Bến Tre"></option>
+              <option value="Bình Định"></option>
+              <option value="Bình Dương"></option>
+              <option value="Bình Phước"></option>
+              <option value="Bình Thuận"></option>
+              <option value="Cà Mau"></option>
+              <option value="Cao Bằng"></option>
+              <option value="Đắk Lắk"></option>
+              <option value="Đắk Nông"></option>
+              <option value="Điện Biên"></option>
+              <option value="Đồng Nai"></option>
+              <option value="Đồng Tháp"></option>
+              <option value="Gia Lai"></option>
+              <option value="Hà Giang"></option>
+              <option value="Hà Nam"></option>
+              <option value="Hà Tĩnh"></option>
+              <option value="Hải Dương"></option>
+              <option value="Hậu Giang"></option>
+              <option value="Hòa Bình"></option>
+              <option value="Hưng Yên"></option>
+              <option value="Khánh Hòa"></option>
+              <option value="Kiên Giang"></option>
+              <option value="Kon Tum"></option>
+              <option value="Lai Châu"></option>
+              <option value="Lâm Đồng"></option>
+              <option value="Lạng Sơn"></option>
+              <option value="Lào Cai"></option>
+              <option value="Long An"></option>
+              <option value="Nam Định"></option>
+              <option value="Nghệ An"></option>
+              <option value="Ninh Bình"></option>
+              <option value="Ninh Thuận"></option>
+              <option value="Phú Thọ"></option>
+              <option value="Phú Yên"></option>
+              <option value="Quảng Bình"></option>
+              <option value="Quảng Nam"></option>
+              <option value="Quảng Ngãi"></option>
+              <option value="Quảng Ninh"></option>
+              <option value="Quảng Trị"></option>
+              <option value="Sóc Trăng"></option>
+              <option value="Sơn La"></option>
+              <option value="Tây Ninh"></option>
+              <option value="Thái Bình"></option>
+              <option value="Thái Nguyên"></option>
+              <option value="Thanh Hóa"></option>
+              <option value="Thừa Thiên Huế"></option>
+              <option value="Tiền Giang"></option>
+              <option value="Trà Vinh"></option>
+              <option value="Tuyên Quang"></option>
+              <option value="Vĩnh Long"></option>
+              <option value="Vĩnh Phúc"></option>
+              <option value="Yên Bái"></option>
+              <option value="Nha Trang"></option>
+              <option value="Đà Lạt"></option>
+              <option value="Vinh"></option>
+              <option value="Quy Nhơn"></option>
+              <option value="Hạ Long"></option>
+              <option value="Huế"></option>
+            </datalist>
+          </div>
+          <button id="weatherBtn" class="btn"><i class="fa-solid fa-cloud-sun"></i> Xem thời tiết</button>
+          <div id="source" class="source"></div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Result -->
+      <div class="card">
+        <div class="status" id="status">
+          <span class="pulse" aria-hidden="true"></span>
+          Sẵn sàng — Nhập tỉnh/thành và bấm “Xem thời tiết”.
+        </div>
+        <div class="result">
+          <!-- Stat cards -->
+          <div class="statgrid">
+            <div class="stat">
+              <div class="label"><i class="fa-solid fa-location-dot"></i> Khu vực</div>
+              <div id="statPlace" class="value">—</div>
+            </div>
+            <div class="stat">
+              <div class="label"><i class="fa-solid fa-temperature-half"></i> Nhiệt độ</div>
+              <div id="statTemp" class="value">—</div>
+            </div>
+            <div class="stat">
+              <div class="label"><i class="fa-solid fa-cloud"></i> Mây</div>
+              <div id="statCloud" class="value">—</div>
+            </div>
+          </div>
+
+          <!-- Bảng chi tiết (vẫn giữ để so sánh/SEO) -->
+          <table>
+            <thead>
+              <tr>
+                <th>Tên</th>
+                <th>Nhiệt độ (°C)</th>
+                <th>Mây (%)</th>
+                <th class="center">Biểu tượng</th>
+              </tr>
+            </thead>
+            <tbody id="tt_weather_tbody">
+              <tr><td colspan="4" class="center">Chưa có dữ liệu</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const TZ = 'Asia/Ho_Chi_Minh';
+
+    function setStatus(text, type){
+      const el = document.getElementById('status');
+      el.innerHTML = '<span class="pulse" aria-hidden="true"></span>' + text;
+      if(type==='error') el.style.color = 'var(--err)'; else el.style.color = 'var(--muted)';
+    }
+
+    function renderRow({ name, temperature, clouds, iconClass, iconLabel }) {
+      // Table
+      const tbody = document.getElementById('tt_weather_tbody');
+      tbody.innerHTML = '';
+      const tr = document.createElement('tr');
+      const tdName = document.createElement('td');
+      const tdTemp = document.createElement('td');
+      const tdClouds = document.createElement('td');
+      const tdIcon = document.createElement('td');
+
+      tdName.textContent = name ?? '';
+      tdTemp.textContent = (temperature ?? '') === '' ? '' : String(temperature);
+      tdClouds.textContent = (clouds ?? '') === '' ? '' : String(clouds);
+      tdIcon.className = 'center';
+      tdIcon.innerHTML = iconClass ? `<i class="fa-solid ${iconClass}" title="${iconLabel || ''}" style="font-size:22px"></i>` : '';
+
+      tr.appendChild(tdName);
+      tr.appendChild(tdTemp);
+      tr.appendChild(tdClouds);
+      tr.appendChild(tdIcon);
+      tbody.appendChild(tr);
+
+      // Stat cards
+      document.getElementById('statPlace').textContent = name || '—';
+      document.getElementById('statTemp').textContent = (temperature ?? '') === '' ? '—' : `${temperature}`;
+      document.getElementById('statCloud').textContent = (clouds ?? '') === '' ? '—' : `${clouds}%`;
+    }
+
+    function weatherCodeToFA(code, isDay) {
+      const c = Number(code);
+      if ([0].includes(c)) return isDay ? 'fa-sun' : 'fa-moon';
+      if ([1, 2].includes(c)) return 'fa-cloud-sun';
+      if ([3].includes(c)) return 'fa-cloud';
+      if ([45, 48].includes(c)) return 'fa-smog';
+      if ([51, 53, 55, 56, 57].includes(c)) return 'fa-cloud-rain';
+      if ([61, 63, 65, 80, 81, 82].includes(c)) return 'fa-cloud-showers-heavy';
+      if ([66, 67].includes(c)) return 'fa-cloud-rain';
+      if ([71, 73, 75, 77, 85, 86].includes(c)) return 'fa-snowflake';
+      if ([95, 96, 99].includes(c)) return 'fa-cloud-bolt';
+      return 'fa-cloud';
+    }
+    function weatherCodeLabel(code) {
+      const c = Number(code);
+      const map = {
+        0:'Trời quang',1:'Ít mây',2:'Mây vừa',3:'Nhiều mây',
+        45:'Sương mù',48:'Sương mù đóng băng',51:'Mưa phùn nhẹ',53:'Mưa phùn vừa',55:'Mưa phùn lớn',
+        56:'Mưa phùn lạnh nhẹ',57:'Mưa phùn lạnh lớn',61:'Mưa nhẹ',63:'Mưa vừa',65:'Mưa lớn',
+        66:'Mưa lạnh nhẹ',67:'Mưa lạnh lớn',71:'Tuyết nhẹ',73:'Tuyết vừa',75:'Tuyết lớn',
+        77:'Hạt tuyết',80:'Mưa rào nhẹ',81:'Mưa rào vừa',82:'Mưa rào lớn',
+        85:'Mưa tuyết rào nhẹ',86:'Mưa tuyết rào lớn',95:'Dông',96:'Dông có mưa đá nhẹ',99:'Dông có mưa đá lớn'
+      };
+      return map[c] || 'Thời tiết';
+    }
+    function viCountryName(country){ if(!country) return ''; if(country==='Vietnam') return 'Việt Nam'; return country; }
+
+    function normalizePlaceInput(name) {
+      const s = String(name || '').trim(); const lower = s.toLowerCase();
+      const map = {
+        'tphcm':'Thành phố Hồ Chí Minh','tp. hcm':'Thành phố Hồ Chí Minh','hcm':'Thành phố Hồ Chí Minh','hcmc':'Thành phố Hồ Chí Minh','sai gon':'Thành phố Hồ Chí Minh','saigon':'Thành phố Hồ Chí Minh',
+        'hn':'Hà Nội','ha noi':'Hà Nội','danang':'Đà Nẵng','da nang':'Đà Nẵng','haiphong':'Hải Phòng','hai phong':'Hải Phòng',
+        'hue':'Huế','thua thien hue':'Thừa Thiên Huế','can tho':'Cần Thơ','nha trang':'Nha Trang','dalat':'Đà Lạt','da lat':'Đà Lạt',
+        'quy nhon':'Quy Nhơn','ha long':'Hạ Long'
+      };
+      return map[lower] || s;
+    }
+
+    function geocodeByName(name){
+      return new Promise((resolve) => {
+        const api = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(name)}&language=vi&count=1`;
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', api, true);
+        xhr.setRequestHeader('Accept', 'application/json');
+        xhr.onreadystatechange = function(){
+          if(xhr.readyState === 4){
+            if(xhr.status >= 200 && xhr.status < 300){
+              try{
+                const data = JSON.parse(xhr.responseText);
+                const r = data?.results?.[0];
+                resolve({ lat:r?.latitude, lon:r?.longitude, name:r?.name, country:r?.country, admin1:r?.admin1 });
+              }catch(e){ resolve({}); }
+            }else resolve({});
+          }
+        };
+        xhr.onerror = () => resolve({});
+        xhr.send();
+      });
+    }
+
+    function callOpenMeteo(lat, lon){
+      return new Promise((resolve) => {
+        const api = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&hourly=cloudcover&timezone=${encodeURIComponent(TZ)}`;
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', api, true);
+        xhr.setRequestHeader('Accept', 'application/json');
+        xhr.onreadystatechange = function(){
+          if(xhr.readyState === 4){
+            if(xhr.status >= 200 && xhr.status < 300){
+              try{ const data = JSON.parse(xhr.responseText); resolve({ data, url:api }); }
+              catch(e){ resolve({ data:null, url:api }); }
+            } else resolve({ data:null, url:api });
+          }
+        };
+        xhr.onerror = () => resolve({ data:null, url:api });
+        xhr.send();
+      });
+    }
+
+    function partsInTZ(date){
+      const fmt = new Intl.DateTimeFormat('en-CA', { timeZone: TZ, hour12:false, year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit' });
+      const parts = fmt.formatToParts(date);
+      const get = (type) => parts.find(p => p.type === type)?.value || '';
+      return { year:get('year'), month:get('month'), day:get('day'), hour:get('hour') };
+    }
+    function currentHourKey(){
+      const p = partsInTZ(new Date());
+      return `${p.year}-${p.month}-${p.day}T${p.hour}:00`;
+    }
+
+    async function showWeatherForPlace(placeName){
+      document.getElementById('source').textContent = 'Đang lấy dữ liệu...';
+      setStatus('Đang gọi Open-Meteo…');
+
+      const geo = await geocodeByName(placeName);
+      const lat = geo?.lat ?? 21.028, lon = geo?.lon ?? 105.834;
+
+      const res = await callOpenMeteo(lat, lon);
+      if(!res.data){ setStatus('Không thể lấy dữ liệu thời tiết', 'error'); document.getElementById('source').textContent = 'Lỗi Open-Meteo'; return; }
+
+      const cw = res.data.current_weather || {};
+      const times = res.data.hourly?.time || [];
+      const cloudsArr = res.data.hourly?.cloudcover || [];
+      let clouds = '';
+      if(Array.isArray(times) && Array.isArray(cloudsArr) && times.length && cloudsArr.length){
+        const idx = times.indexOf(currentHourKey());
+        const useIdx = idx !== -1 ? idx : Math.max(0, Math.min(times.length - 1, times.indexOf(cw.time)));
+        clouds = cloudsArr[useIdx];
+      }
+
+      const countryLabel = viCountryName(geo?.country);
+      const adminLabel = geo?.admin1 ? `, ${geo.admin1}` : '';
+      const nameLabel = geo?.name ? `${geo.name}${adminLabel}${countryLabel ? ', ' + countryLabel : ''}` : placeName;
+
+      const iconClass = weatherCodeToFA(cw.weathercode, cw.is_day);
+      const iconLabel = weatherCodeLabel(cw.weathercode);
+
+      renderRow({ name:nameLabel, temperature:cw.temperature, clouds, iconClass, iconLabel });
+      setStatus('Đã tải xong ✓');
+      document.getElementById('source').innerHTML = `<span class="chip"><i class="fa-solid fa-database"></i> Nguồn: Open-Meteo</span>`;
+    }
+
+    document.getElementById('weatherBtn').addEventListener('click', () => {
+      const raw = document.getElementById('place').value.trim() || 'Hà Nội';
+      const placeName = normalizePlaceInput(raw);
+      showWeatherForPlace(placeName);
+    });
+    window.addEventListener('load', () => showWeatherForPlace('Hà Nội'));
+  </script>
+</body>
+</html>
