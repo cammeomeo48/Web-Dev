@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>
+            tieu de - Cam
+        </title>
+    </head>
+    <body>
+        <script type="text/javascript">
+           api_dantri="https://dantri.com.vn/trangchu.rss"
+        </script>
+        
+        <script>
+            var xhr =new XMLHttpRequest();
+            xhr.open("GET","datasets/books.xml",true);
+            xhr.send();
+            xhr.onreadystatechange=function()
+            {
+                if (xhr.readyState==4 && xhr.status==200)
+                {
+                    //handling when loading data successfully
+                    var xmlDoc = xhr.responseXML;
+                    title=xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+                    author=xmlDoc.getElementsByTagName("author")[0].childNodes[0].nodeValue;
+                    year=xmlDoc.getElementsByTagName("year")[0].childNodes[0].nodeValue;
+                    td_title.innerText=title
+                    td_author.innerText=author
+                    td_year.innerText=year
+                }
+                else
+                {
+                    //handling when data can't be loaded
+                }
+            }
+
+        </script>
+    </body>
+</html>
